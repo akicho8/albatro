@@ -1,0 +1,7 @@
+gem "activesupport"
+gem "amazon-ecs"
+gem "backports"
+gem "google-search"
+gem "rspec"
+gem "sanitize"
+gem "twitter_oauth"

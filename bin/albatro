@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+begin
+  require "albatro/cli"
+rescue LoadError
+  require "rubygems"
+  require "albatro/cli"
+end
+Albatro::CLI.execute

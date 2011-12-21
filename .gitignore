@@ -1,0 +1,11 @@
+.*
+_*
+*.log
+*.gem
+TAGS
+tmp
+/Gemfile.lock
+/pkg
+/references
+/log
+
