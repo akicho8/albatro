@@ -14,7 +14,7 @@ module Albatro
       }.merge(options)
       case v = options[:sample_at]
       when :first, :last, :sample
-        array.send(v)
+        array.public_send(v)
       when Integer
         array.at(v)
       else

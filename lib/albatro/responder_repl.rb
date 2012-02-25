@@ -8,7 +8,7 @@ module Albatro
     #   内部コマンド切り替え
     #
     #     / のあとに入力したものはそのまま responder オブジェクトに送る
-    #       例: /func #=> self.send(:func)
+    #       例: /func #=> self.public_send(:func)
     #
     #     コマンドの例
     #       /set trace
@@ -48,7 +48,7 @@ module Albatro
         if md = input.match(%r{^/(.*)})
           args = md.captures.first.split(/\s+/)
           begin
-            r = send(*args)
+            r = public_send(*args)
             if [String, Integer, Array].include?(r.class)
               puts r
             end
