@@ -145,3 +145,7 @@
 
    - spec 内は include Albatro で。
    - ruby lib/albatro/morpheme.rb が文字化け
+
+** 参考資料
+
+   - 恋するプログラム - Rubyでつくる人工無脳 秋山智俊 (2005年4月毎日コミュニケーションズ刊)
