@@ -12,8 +12,6 @@
 #   n = n.next
 # end
 
-$KCODE = "u"
-
 require "MeCab"
 require "pp"
 require "kconv"
@@ -60,7 +58,8 @@ module Albatro
     attr_writer :mecab
 
     def initialize
-      @mecab_options = "-d /opt/local/lib/mecab/dic/ipadic-utf8 -Ochasen"
+      # FIXME: このハードコーディングをやめたい。export MECAB_DEFAULT_RC=/usr/local/Cellar/mecab/0.994/lib/mecab/dic/ipadic としても効かないし。
+      @mecab_options = "-d /usr/local/Cellar/mecab/0.994/lib/mecab/dic/ipadic -Ochasen"
     end
 
     #

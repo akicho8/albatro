@@ -4,8 +4,8 @@ _*
 *.gem
 TAGS
 tmp
+/README.html
 /Gemfile.lock
 /pkg
 /references
 /log
-

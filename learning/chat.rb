@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 require File.expand_path(File.join(File.dirname(__FILE__), "../lib/albatro"))
 Albatro.logger = ActiveSupport::BufferedLogger.new(File.expand_path(File.join(File.dirname(__FILE__), "log/development.log")))
 
