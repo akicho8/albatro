@@ -12,13 +12,15 @@
 #   n = n.next
 # end
 
-require "MeCab"
+require "bundler/setup"
+Bundler.require
+
 require "pp"
 require "kconv"
 require "singleton"
 require "strscan"
 
-require File.expand_path(File.join(File.dirname(__FILE__), "logger"))
+require_relative "logger"
 
 module Albatro
   class Morpheme
@@ -53,13 +55,12 @@ module Albatro
     #
     # MeCabのインスタンスを自力で設定したい場合用
     #
-    #   Morpheme.instance.mecab = MeCab::Tagger.new("-d /opt/local/lib/mecab/dic/ipadic-utf8 -Ochasen")
+    #   Morpheme.instance.mecab = MeCab::Tagger.new("-Ochasen")
     #
     attr_writer :mecab
 
     def initialize
-      # FIXME: このハードコーディングをやめたい。export MECAB_DEFAULT_RC=/usr/local/Cellar/mecab/0.994/lib/mecab/dic/ipadic としても効かないし。
-      @mecab_options = "-d /usr/local/Cellar/mecab/0.994/lib/mecab/dic/ipadic -Ochasen"
+      @mecab_options = "-Ochasen"
     end
 
     #
@@ -74,12 +75,15 @@ module Albatro
     #     ]
     #
     def analyze(text)
-      result = mecab.parse(text.to_s)
+      if Array === text
+        text = text.join        # FIXME: 1.8 → 1.9 でしかたなく追加。引数を文字列で渡すように直す
+      end
+      result = mecab.parse(text)
       parts = result.lines.collect{|line|
         line = line.strip
         next if line == "EOS"
         fields = line.split(/\s+/)
-        {:word => fields[0], :senses => fields[3].split("-")} # FIXME: マジックナンバーを消したい
+        {:word => fields[0], :senses => fields[3].split("-")} # FIXME: マジックナンバーを消したいんだが
       }.compact
       Albatro.logger.debug(__parsed_result_as_table(parts)) if Albatro.logger
       parts
@@ -91,7 +95,7 @@ module Albatro
     # FIXME: これは private にするべきか？
     #
     def mecab
-      @mecab ||= MeCab::Tagger.new([@mecab_options].flatten.join(" "))
+      @mecab ||= MeCab::Tagger.new(Array.wrap(@mecab_options).join(" "))
     end
 
     module Utils
@@ -115,12 +119,12 @@ module Albatro
       #
       # テキストからキーワードを抽出する
       #
-      #  p pickup_keywords("夏花火と冬花火") #=> ["夏花火", "冬花火"]
+      #    p pickup_keywords("夏花火と冬花火") #=> ["夏花火", "冬花火"]
       #
       #  連続する名詞は結合する
       #
-      #  pickup_keywords("夏花火", :pickup => ["名詞"])                        # 名詞が含まれたもの
-      #  pickup_keywords("夏花火", :pickup => ["名詞"], :reject => ["形容詞"]) # 形容詞が含まれてたらだめ
+      #    pickup_keywords("夏花火", :pickup => ["名詞"])                        # 名詞が含まれたもの
+      #    pickup_keywords("夏花火", :pickup => ["名詞"], :reject => ["形容詞"]) # 形容詞が含まれてたらだめ
       #
       def pickup_keywords(text, options = {})
         options = {
@@ -213,29 +217,14 @@ module Albatro
       end
 
       def __parsed_result_as_table(items, options = {})
-        require "rubygems"
-        begin
-          require "simple_table"
-        rescue LoadError
-        end
-        out = ""
-        if Object.const_defined?("SimpleTable")
-          rows = items.collect{|item|
-            {:word => item[:word], :senses => item[:senses].join(" ")}
-          }
-          select_columns = [
-            {:key => :word,   :label => "語彙", :size => nil},
-            {:key => :senses, :label => "意味", :size => nil},
-          ]
-          out = SimpleTable.generate(rows, :select_columns => select_columns, :in_code => Kconv::UTF8)
-        else
-          width = items.collect{|item|item[:word].kconv(Kconv::EUC, Kconv::UTF8).size}.max
-          items.each{|item|
-            left = item[:word].kconv(Kconv::EUC, Kconv::UTF8).rjust(width).kconv(Kconv::UTF8, Kconv::EUC)
-            out << [left, " → ", item[:senses].join(" ")].join + "\n"
-          }
-        end
-        out
+        rows = items.collect{|item|
+          {:word => item[:word], :senses => item[:senses].join(" ")}
+        }
+        select_columns = [
+          {:key => :word,   :label => "語彙", :size => nil},
+          {:key => :senses, :label => "意味", :size => nil},
+        ]
+        RainTable.generate(rows, :select_columns => select_columns, :in_code => Kconv::UTF8)
       end
 
       #
@@ -410,5 +399,4 @@ if $0 == __FILE__
   Albatro::Morpheme.execute(["初音ミクと鏡音リン"])
   Albatro::Morpheme.execute(["-k", "初音ミクと鏡音リン(笑)"])
   Albatro::Morpheme.execute(["-c", "初音ミクと鏡音リン"])
-
 end

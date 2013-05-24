@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-require File.expand_path(File.join(File.dirname(__FILE__), "node_base"))
+require_relative "node_base"
 
 module Albatro
   module AutoIndex
@@ -38,7 +38,7 @@ module Albatro
     end
 
     # ノードを一行で表わす
-    def to_s_for_tree
+    def to_s_tree
       flags = []
       if first_flag
         flags << "t"
@@ -59,7 +59,7 @@ module Albatro
 
     # 文章の先頭として使えるノードたち取得
     def first_nodes
-      @nodes.find_all{|node|node.first_flag}
+      children.find_all{|node|node.first_flag}
     end
 
     # デバッグ用にシンプルなruby形式の辞書に変換
@@ -78,7 +78,7 @@ module Albatro
       else
         result = {}
       end
-      @nodes.each{|node|
+      children.each{|node|
         if _depth == prefix_size
           result << node.word
         else
@@ -98,8 +98,8 @@ module Albatro
         attrs[:color] = "black"
         attrs[:fillcolor] = "lightblue"
       end
-      # if options[:prefix] && options[:prefix] == options[:depth] && (parent && parent.nodes.size > 1) # 一番最後で兄弟がいる
-      if options[:depth] >=1 && (parent && parent.nodes.size > 1) # 兄弟がいる
+      # if options[:prefix] && options[:prefix] == options[:depth] && (parent && parent.children.size > 1) # 一番最後で兄弟がいる
+      if options[:depth] >= 1 && (parent && parent.children.size > 1) # 兄弟がいる
         attrs[:style] = "filled"
         attrs[:color] = "black"
         attrs[:fillcolor] = "lightpink"

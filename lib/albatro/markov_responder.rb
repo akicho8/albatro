@@ -38,9 +38,9 @@
 # p dictionary["速い"]["虫"] #=> ["だ", "よ"]
 # p dictionary["虫"]["だ"]   #=> nil
 
-require File.expand_path(File.join(File.dirname(__FILE__), "responder"))
-require File.expand_path(File.join(File.dirname(__FILE__), "morpheme"))
-require File.expand_path(File.join(File.dirname(__FILE__), "markov_node"))
+require_relative "responder"
+require_relative "morpheme"
+require_relative "markov_node"
 
 require "enumerator"
 require "pathname"
@@ -109,19 +109,19 @@ module Albatro
         prefixes.each_with_index{|prefix_word, index|
           if index.zero?
             # プレフィクス1
-            node = dictionary.nodes.find{|item|item.word == prefix_word} || dictionary.nodes_create(:word => prefix_word)
+            node = dictionary.children.find{|item|item.word == prefix_word} || dictionary.nodes_create(:word => prefix_word)
             if (base_index + index).zero?
               node.first_flag = true # "アヒル" のときだけフラグをつける
             end
           elsif (1...(prefixes.size-1)).include?(index)
             # プレフィクス2
-            node = node.nodes.find{|item|item.word == prefix_word} || node.nodes_create(:word => prefix_word)
+            node = node.children.find{|item|item.word == prefix_word} || node.nodes_create(:word => prefix_word)
           else
             # サフィックス
             # ここを複数にした場合     → メモリ使用量大・多い言葉は選ばれやすくなる
             # ここをユニークにした場合 → メモリ使用量少・均等に選ばれる
             if options[:uniquesuffix]
-              node = node.nodes.find{|item|item.word == prefix_word} || node.nodes_create(:word => prefix_word)
+              node = node.children.find{|item|item.word == prefix_word} || node.nodes_create(:word => prefix_word)
             else
               node.nodes_create(:word => prefix_word)
             end
@@ -198,7 +198,7 @@ module Albatro
 
       # 次の言葉もランダムに決める
       (options[:prefix] - 1).times{
-        next_node = node_sample(node.nodes, options)
+        next_node = node_sample(node.children, options)
         unless next_node
           # あまりに短い文章になってしまうけど完成したことにする
           complete = true
@@ -215,16 +215,16 @@ module Albatro
           next_slide_prefixes = []
           node = dictionary
           slide_prefixes.each_with_index{|current_prefix, index|
-            node = node.nodes.find{|elem|elem.word == current_prefix.word}
+            node = node.children.find{|elem|elem.word == current_prefix.word}
             unless index.zero?
               next_slide_prefixes << node
             end
           }
           # 選択するノードがないので終了
-          if node.nodes.empty?
+          if node.children.empty?
             break
           end
-          node = node_sample(node.nodes, options.merge(:collection => collection))
+          node = node_sample(node.children, options.merge(:collection => collection))
           # ノードが選択できなかったら終了
           unless node
             break
@@ -309,8 +309,8 @@ module Albatro
     #
     # このメソッドで性格が変わるので、クラス化するのもあり
     #
-    def node_sample(nodes, options)
-      array_sample(nodes, :sample_at => options[:sample_at] || @options[:sample_at])
+    def node_sample(children, options)
+      array_sample(children, :sample_at => options[:sample_at] || @options[:sample_at])
     end
 
     #
@@ -336,7 +336,7 @@ module Albatro
   class MarkovResponder < MarkovBaseResponder
     # 複数のノードから一つを選択する
     # このメソッドで性格が変わるので、クラス化するのもあり
-    def node_sample(nodes, options)
+    def node_sample(children, options)
       node = nil
       try_count = 0
 
@@ -346,7 +346,7 @@ module Albatro
 
       # TODO: 同じものを選択し続けないようにループに入らないようにチェックする
       # ループするたびに次のノードを選択するようにする
-      sorted_nodes = nodes_sort(nodes, options)
+      sorted_nodes = nodes_sort(children, options)
       # p [options, sorted_nodes]
       node = sorted_nodes[try_count.modulo(sorted_nodes.size)]
 
@@ -361,8 +361,8 @@ module Albatro
     # options[:nodes_sort_type] が有効でない場合
     #   selected_count が同じもの同士は生成順
     #
-    def nodes_sort(nodes, options)
-      nodes.sort_by{|node|
+    def nodes_sort(children, options)
+      children.sort_by{|node|
         if options[:nodes_sort_type].kind_of? Proc
           options[:nodes_sort_type].call(node)
         elsif options[:nodes_sort_type] == :rand
@@ -385,11 +385,11 @@ if $0 == __FILE__
   str = "AとBとC"
   object = Albatro::MarkovResponder.new(:prefix => 2)
   object.study_from(:string => str)
-  p object.dialogue2(:input => "A", :always_newtopic => true, :chain_max => 10, :prefix => 1).to_s
+  p object.dialogue2(:input => "A", :always_newtopic => true, :chain_max => 10, :prefix => 1).join
   puts object.tree
   exit
 
-  pp object.dialogue2(:always_newtopic => true, :chain_max => 10).to_s
+  pp object.dialogue2(:always_newtopic => true, :chain_max => 10).join
 
   # object = Albatro::MarkovResponder.new(options.merge(:sample_try_max => 0))
   # object.study_from(:string => str)
@@ -402,11 +402,11 @@ if $0 == __FILE__
   str = "AとAとB"
   object = Albatro::MarkovBaseResponder.new(:prefix => 1)
   object.study_from(:string => str)
-  pp object.dialogue2(:always_newtopic => true, :chain_max => 10).to_s
+  pp object.dialogue2(:always_newtopic => true, :chain_max => 10).join
 
   object = Albatro::MarkovResponder.new(:prefix => 1)
   object.study_from(:string => str)
-  pp object.dialogue2(:always_newtopic => true, :chain_max => 10).to_s
+  pp object.dialogue2(:always_newtopic => true, :chain_max => 10).join
 
   exit
 

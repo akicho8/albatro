@@ -1,4 +1,6 @@
-require File.expand_path(File.join(File.dirname(__FILE__), "../lib/albatro"))
+# -*- coding: utf-8 -*-
+require "bundler/setup"
+Bundler.require
 
 responder = Albatro::MarkovResponder.new(:sample_at => :first)
 responder.study_from_string("アヒルと鴨のコインロッカー")

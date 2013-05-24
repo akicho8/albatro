@@ -61,13 +61,13 @@ describe Albatro::MarkovResponder do
     it "カウンタブルが効いてないのでAを何度も選択してしまう" do
       object = Albatro::MarkovBaseResponder.new(:prefix => 1)
       object.study_from(:string => @str)
-      object.dialogue2(:always_newtopic => true, :chain_max => 10).to_s.should == "XとAとAとAとAとA"
+      object.dialogue2(:always_newtopic => true, :chain_max => 10).join.should == "XとAとAとAとAとA"
     end
 
     it "カウンタブルが効いているのでAのあとはBを選択する" do
       object = Albatro::MarkovResponder.new(:prefix => 1)
       object.study_from(:string => @str)
-      object.dialogue2(:always_newtopic => true, :chain_max => 10).to_s.should == "XとAとB"
+      object.dialogue2(:always_newtopic => true, :chain_max => 10).join.should == "XとAとB"
     end
 
     describe "歩いた回数が同じものは最初に登録されたものから選択するかどうか" do
@@ -78,21 +78,21 @@ describe Albatro::MarkovResponder do
       it "同じ selected_count なら最初に登録されたものから選択" do
         object = Albatro::MarkovResponder.new(:prefix => 2)
         object.study_from(@lines)
-        resp = (0...3).collect{object.dialogue2(:always_newtopic => true, :chain_max => 10, :nodes_sort_type => nil).to_s}
+        resp = (0...3).collect{object.dialogue2(:always_newtopic => true, :chain_max => 10, :nodes_sort_type => nil).join}
         resp.should == ["XとA", "XとB", "XとC"]
       end
 
       it "同じ selected_count なら最後に登録されたものから選択" do
         object = Albatro::MarkovResponder.new(:prefix => 2)
         object.study_from(@lines)
-        resp = (0...3).collect{object.dialogue2(:always_newtopic => true, :chain_max => 10, :nodes_sort_type => proc{|e|[e.selected_count, -e.id]}).to_s}
+        resp = (0...3).collect{object.dialogue2(:always_newtopic => true, :chain_max => 10, :nodes_sort_type => proc{|e|[e.selected_count, -e.id]}).join}
         resp.should == ["XとC", "XとB", "XとA"]
       end
 
       it "同じ selected_count ならランダム" do
         object = Albatro::MarkovResponder.new(:prefix => 2)
         object.study_from(@lines)
-        resp = (0...3).collect{object.dialogue2(:always_newtopic => true, :chain_max => 10, :nodes_sort_type => :rand).to_s}
+        resp = (0...3).collect{object.dialogue2(:always_newtopic => true, :chain_max => 10, :nodes_sort_type => :rand).join}
         resp.should be_present
       end
     end
@@ -134,7 +134,7 @@ describe Albatro::MarkovResponder do
         "他にもおもしろいゲームある？",
         "つまらないゲームは？",
         "さっきおもしろいゲームはドラクエって言わなかった？",
-      ].collect{|input|@markovs["p1_m1"].dialogue(input).to_s}.should == [
+      ].collect{|input|@markovs["p1_m1"].dialogue(input).join}.should == [
         "おもしろいゲームはドラクエです",
         "おもしろいゲームはテトリスです",
         "つまらないゲームはドラクエです",
@@ -148,7 +148,7 @@ describe Albatro::MarkovResponder do
         "他におもしろいゲームある？",
         "つまらないのは？",
         "ところで主食なんだっけ？",
-      ].collect{|input|@markovs["p1_m2"].dialogue(input).to_s}.should == [
+      ].collect{|input|@markovs["p1_m2"].dialogue(input).join}.should == [
         "おもしろいゲームはドラクエです",
         "おもしろいゲームはテトリスです",
         "つまらないゲームはスパゲティです",
@@ -162,7 +162,7 @@ describe Albatro::MarkovResponder do
         "他におもしろいゲームある？",
         "つまらないのは？",
         "ところで主食なんだっけ？",
-      ].collect{|input|@markovs["p2_m2"].dialogue(input).to_s}.should == [
+      ].collect{|input|@markovs["p2_m2"].dialogue(input).join}.should == [
         "おもしろいゲームはドラクエです",
         "おもしろいゲームはテトリスです",
         "つまらないゲームはドラクエです",
@@ -176,7 +176,7 @@ describe Albatro::MarkovResponder do
         "他にもおもしろいゲームある？",
         "他におもしろいのある？",
         "じゃあ、つまらないのは？",
-      ].collect{|input|@markovs["p3_m2"].dialogue(input).to_s}.should == [
+      ].collect{|input|@markovs["p3_m2"].dialogue(input).join}.should == [
         "おもしろいゲームはドラクエです",
         "おもしろいゲームはドラクエです",
         "おもしろいゲームはドラクエです",

@@ -1,10 +1,9 @@
-require File.expand_path(File.join(File.dirname(__FILE__), "node_basic"))
-require File.expand_path(File.join(File.dirname(__FILE__), "tree_support"))
-require File.expand_path(File.join(File.dirname(__FILE__), "graphviz_support"))
+require_relative "node_basic"
+require_relative "graphviz_support"
 
 module Albatro
   class NodeBase < NodeBasic
-    include TreeSupport
+    include TreeSupport::Model
     include GraphvizSupport
   end
 end

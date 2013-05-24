@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-require File.expand_path(File.join(File.dirname(__FILE__), "responder"))
-require File.expand_path(File.join(File.dirname(__FILE__), "morpheme"))
+require_relative "responder"
+require_relative "morpheme"
 
 class Albatro::LaughResponder < Albatro::Responder
   def dialogue(input, options = {})

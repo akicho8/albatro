@@ -2,7 +2,7 @@
 require "spec_helper"
 require "albatro/simple_node"
 
-describe Albatro::TreeSupport do
+describe TreeSupport do
   before do
     @root = Albatro::SimpleNode.new(:word => "(root)")
     node1 = @root.nodes_create(:word => "アヒル")
@@ -14,37 +14,16 @@ describe Albatro::TreeSupport do
     node2.nodes_create(:word => "カモ")
   end
 
-  it "to_dot" do
-    @root.tree(:skip => 0).should == <<-EOT
+  it "tree" do
+    @root.tree.should == <<-EOT
 (root)
 ├─アヒル
-│  ├─と
-│  │  ├─ピエロ
-│  │  └─カモ
-│  └─です
+│   ├─と
+│   │   ├─ピエロ
+│   │   └─カモ
+│   └─です
 └─チルドレン
     └─です
-    EOT
-
-    @root.tree(:skip => 0, :root_label => "トップ").should == <<-EOT
-トップ
-├─アヒル
-│  ├─と
-│  │  ├─ピエロ
-│  │  └─カモ
-│  └─です
-└─チルドレン
-    └─です
-    EOT
-
-    @root.tree(:skip => 1, :root_label => "トップ").should == <<-EOT
-アヒル
-├─と
-│  ├─ピエロ
-│  └─カモ
-└─です
-チルドレン
-└─です
     EOT
   end
 end

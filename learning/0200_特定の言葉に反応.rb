@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # 特定の言葉に反応する
-require File.expand_path(File.join(File.dirname(__FILE__), "helper"))
+require_relative 'helper'
 # Albatro.logger = ActiveSupport::BufferedLogger.new(STDOUT)
 
 class WatchResponder < Albatro::Responder

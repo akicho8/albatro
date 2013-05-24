@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # 0300_ネットを駆使する_ぐぐる.rb
-require File.expand_path(File.join(File.dirname(__FILE__), "helper"))
+require_relative 'helper'
 # Albatro.logger = ActiveSupport::BufferedLogger.new(STDOUT)
 
 messages = [

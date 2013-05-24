@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-require File.expand_path(File.join(File.dirname(__FILE__), "../lib/albatro"))
+require "bundler/setup"
+Bundler.require
 
 responder = Albatro::MarkovResponder.new
 text = "

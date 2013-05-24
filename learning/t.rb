@@ -4,7 +4,7 @@
 require "kconv"
 require "drb/drb"
 require "timeout"
-require "ping"
+require "net/ping"
 require "resolv"
 
 module Chat
@@ -16,7 +16,7 @@ module Chat
       }.merge(params)
 
       host_with_port = [@params[:host], @params[:port]].join(":")
-      if Ping::pingecho(@params[:host], 1, @params[:port])
+      if Net::Ping::External.new(@params[:host], @params[:port], 1).ping?
         @object = DRb::DRbObject.new_with_uri("druby://#{host_with_port}")
       else
         puts "#{host_with_port} に接続できません"

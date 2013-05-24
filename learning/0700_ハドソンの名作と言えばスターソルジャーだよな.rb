@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-require File.expand_path(File.join(File.dirname(__FILE__), "helper"))
+require_relative 'helper'
 # Albatro.logger = ActiveSupport::BufferedLogger.new(STDOUT)
 
 responder = Albatro::Recommend2Responder.new

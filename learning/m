@@ -1,4 +1,4 @@
 #!/usr/local/bin/ruby -Ku
-require File.expand_path(File.join(File.dirname(__FILE__), "talk_client"))
+require_relative 'talk_client'
 object = Chat::TalkClient.new
 object.talk(ARGV.to_s, :tone => 105, :program_no => 9, :speed => 120, :volume => 100)

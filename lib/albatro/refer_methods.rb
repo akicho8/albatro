@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-require File.expand_path(File.join(File.dirname(__FILE__), "morpheme"))
-require File.expand_path(File.join(File.dirname(__FILE__), "refer_methods"))
+require_relative "morpheme"
+require_relative "refer_methods"
 
 module Albatro
   module ReferMethods
@@ -80,7 +80,7 @@ module Albatro
 end
 
 if $0 == __FILE__
-  require File.expand_path(File.join(File.dirname(__FILE__), "responder"))
+  require_relative "responder"
 
   class C < Albatro::Responder
     include Albatro::ReferMethods

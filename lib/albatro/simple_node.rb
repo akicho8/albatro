@@ -4,7 +4,7 @@
 # テスト用のクラス
 # このクラスを作っておかないとテストしにくい
 #
-require File.expand_path(File.join(File.dirname(__FILE__), "node_base"))
+require_relative "node_base"
 
 module Albatro
   class SimpleNode < NodeBase
@@ -13,7 +13,7 @@ module Albatro
       @word = params[:word]
     end
 
-    def to_s_for_tree
+    def to_s_tree
       @word
     end
 

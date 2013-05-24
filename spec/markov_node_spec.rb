@@ -12,6 +12,6 @@ describe Albatro::MarkovNode do
     node1.nodes_create(:word => "が")
     root.tree_dump(2).should == {"アヒル"=>{"と"=>["鴨", "カモ"], "が"=>[]}}
     root.tree.should be_present
-    root.nodes.should be_present
+    root.children.should be_present
   end
 end

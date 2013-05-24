@@ -1,4 +1,4 @@
-require File.expand_path(File.join(File.dirname(__FILE__), "logger"))
+require_relative "logger"
 Albatro.logger ||= ActiveSupport::BufferedLogger.new(File.expand_path(File.join(File.dirname(__FILE__), "../../log/development.log")))
 
 if $0 == __FILE__

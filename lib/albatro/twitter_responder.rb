@@ -2,8 +2,8 @@
 
 require "active_support/core_ext/string"
 
-require File.expand_path(File.join(File.dirname(__FILE__), "responder"))
-require File.expand_path(File.join(File.dirname(__FILE__), "morpheme"))
+require_relative "responder"
+require_relative "morpheme"
 
 module Albatro
   #
@@ -24,7 +24,7 @@ module Albatro
         records = records.collect{|line|line.gsub(/RT\s+.*/, "")}   # "wwwRT ..." #=> "www"
         records = records.collect{|line|line.gsub(/#[a-z_]+/, "")}  # "#foo" #=> ""
         records = records.reject{|line|line.match(/http/)}          # http が含まれるものを削除
-        if text = records.choice
+        if text = records.sample
           text = text.squish
           if text.scan(/./).size >= 100
             # 文が長すぎるので切る

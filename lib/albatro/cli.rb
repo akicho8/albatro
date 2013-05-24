@@ -8,7 +8,7 @@
 # -*- compile-command: "ruby -I.. cli.rb --clear --read=bocchan_mini.txt --count 8" -*-
 # -*- compile-command: "ruby -I.. cli.rb --responder=what --say=こんにちは" -*-
 
-require File.expand_path(File.join(File.dirname(__FILE__), "../albatro"))
+require_relative "../albatro"
 
 require "optparse"
 

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # 人間らしく聞き返す-失敗
-require File.expand_path(File.join(File.dirname(__FILE__), "helper"))
+require_relative 'helper'
 # Albatro.logger = ActiveSupport::BufferedLogger.new(STDOUT)
 
 messages = [

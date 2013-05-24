@@ -46,7 +46,7 @@ describe Albatro::Morpheme do
         "僕が、" => "僕が",
         "で、"   => "で、",
       }.each{|src, dst|
-        @object.touten_reject(@object.analyze(src)).collect{|e|e[:word]}.to_s.should == dst
+        @object.touten_reject(@object.analyze(src)).collect{|e|e[:word]}.join.should == dst
       }
     end
 
@@ -59,7 +59,7 @@ describe Albatro::Morpheme do
         "している。" => "している",
         "私。"       => "私。",
       }.each{|src, dst|
-        @object.kuten_reject(@object.analyze(src)).collect{|e|e[:word]}.to_s.should == dst
+        @object.kuten_reject(@object.analyze(src)).collect{|e|e[:word]}.join.should == dst
       }
     end
   end

@@ -1,30 +1,29 @@
 # -*- coding: utf-8 -*-
-$KCODE = "u"
 
 # 基本ライブラリ
-require File.expand_path(File.join(File.dirname(__FILE__), "albatro/logger"))
-require File.expand_path(File.join(File.dirname(__FILE__), "albatro/responder"))
-require File.expand_path(File.join(File.dirname(__FILE__), "albatro/morpheme"))
-require File.expand_path(File.join(File.dirname(__FILE__), "albatro/markov_node"))
+require_relative "albatro/logger"
+require_relative "albatro/responder"
+require_relative "albatro/morpheme"
+require_relative "albatro/markov_node"
 
 # 応答クラス
-require File.expand_path(File.join(File.dirname(__FILE__), "albatro/debug_responder"))
-require File.expand_path(File.join(File.dirname(__FILE__), "albatro/actor_responder"))
-require File.expand_path(File.join(File.dirname(__FILE__), "albatro/ask_responder"))
-require File.expand_path(File.join(File.dirname(__FILE__), "albatro/human_responder"))
-require File.expand_path(File.join(File.dirname(__FILE__), "albatro/laugh_responder"))
-require File.expand_path(File.join(File.dirname(__FILE__), "albatro/learn_responder"))
-require File.expand_path(File.join(File.dirname(__FILE__), "albatro/log_responder"))
-require File.expand_path(File.join(File.dirname(__FILE__), "albatro/memory_responder"))
-require File.expand_path(File.join(File.dirname(__FILE__), "albatro/markov_responder"))
-require File.expand_path(File.join(File.dirname(__FILE__), "albatro/net_responder"))
-require File.expand_path(File.join(File.dirname(__FILE__), "albatro/random_responder"))
-require File.expand_path(File.join(File.dirname(__FILE__), "albatro/recommend_responder"))
-require File.expand_path(File.join(File.dirname(__FILE__), "albatro/sweets_responder"))
-require File.expand_path(File.join(File.dirname(__FILE__), "albatro/time_responder"))
-require File.expand_path(File.join(File.dirname(__FILE__), "albatro/twitter_responder"))
-require File.expand_path(File.join(File.dirname(__FILE__), "albatro/what_responder"))
+require_relative "albatro/debug_responder"
+require_relative "albatro/actor_responder"
+require_relative "albatro/ask_responder"
+require_relative "albatro/human_responder"
+require_relative "albatro/laugh_responder"
+require_relative "albatro/learn_responder"
+require_relative "albatro/log_responder"
+require_relative "albatro/memory_responder"
+require_relative "albatro/markov_responder"
+require_relative "albatro/net_responder"
+require_relative "albatro/random_responder"
+require_relative "albatro/recommend_responder"
+require_relative "albatro/sweets_responder"
+require_relative "albatro/time_responder"
+require_relative "albatro/twitter_responder"
+require_relative "albatro/what_responder"
 
 module Albatro
-  VERSION = "1.0.0"
+  VERSION = "1.1.0"
 end

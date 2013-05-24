@@ -6,15 +6,9 @@ module Albatro
   #
   # データを保持するにはクラスを継承
   #
-  class NodeBasic
-    attr_reader :nodes
-
-    def initialize(*)
-      @nodes = []
-    end
-
+  class NodeBasic < TreeSupport::Node
     # ちょっと詳しい文字列表現
-    def to_s_for_tree
+    def to_s_tree
       "#{object_id}"
     end
 
@@ -25,20 +19,16 @@ module Albatro
 
     # 配列化
     def to_a
-      [self, @nodes.collect{|node|node.to_a}]
+      [self, children.collect{|node|node.to_a}]
     end
 
     # 子の作成
     def nodes_create(params = {})
       node = self.class.new(params)
       node.parent = self
-      @nodes << node
+      children << node
       node
     end
-
-    protected
-
-    attr_accessor :parent
   end
 end
 

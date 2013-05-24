@@ -7,39 +7,8 @@
 
 ** セットアップ
 
-   : $ brew uninstall mecab mecab-ipadic
-   : $ brew install mecab-ipadic
-
-   とすればいいらしいけど、なぜか自分の環境だとダメ。
-
-   : $ mecab
-   : param.cpp(69) [ifs] no such file or directory: ./dicrc
-
-   仕方ないので以下のようにして確認。
-
-   : mecab -d /usr/local/Cellar/mecab/0.994/lib/mecab/dic/ipadic
-
-   次は、rubyバインディングの方を入れる。
-   2013-01-06 の時点だと gem install mecab-ruby できないので tar から入れる。
-
-   : cd /usr/local/src
-   : wget http://mecab.googlecode.com/files/mecab-ruby-0.99.tar.gz
-   : tar zxvf mecab-ruby-0.99.tar.gz
-   : cd mecab-ruby-0.99
-   : gem build mecab-ruby.gemspec
-   : gem install mecab-ruby-0.99.gem
-
-   確認
-
-   : ruby -r MeCab -e ''
-
-   で、bundle install したとしても
-
-   : ruby -e 'require "MeCab"'
-
-   が、動かんのだわ
-
-   しょうがないので、いまのところは bundle exec を指定せずに動かすので様子見。
+   : brew install mecab mecab-ipadic
+   : bundle install
 
 * できること
 

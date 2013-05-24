@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-require File.expand_path(File.join(File.dirname(__FILE__), "responder"))
-require File.expand_path(File.join(File.dirname(__FILE__), "refer_methods"))
+require_relative "responder"
+require_relative "refer_methods"
 
 module Albatro
   module Taisetunahitotte2Dialogue

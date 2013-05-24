@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-require File.expand_path(File.join(File.dirname(__FILE__), "chat"))
+require_relative 'chat'
 
 # 汎用ボット
 class SBot < Chat::SimpleBot

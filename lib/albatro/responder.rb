@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 # 応答クラスのテンプレート
 
-require File.expand_path(File.join(File.dirname(__FILE__), "responder_utils"))
-require File.expand_path(File.join(File.dirname(__FILE__), "responder_repl"))
-require File.expand_path(File.join(File.dirname(__FILE__), "logger"))
+require_relative "responder_utils"
+require_relative "responder_repl"
+require_relative "logger"
 
 module Albatro
   class Responder
     include ResponderUtils
-    include ResponderREPL
+    include ResponderRepl
 
     attr_accessor :options, :dictionary
 

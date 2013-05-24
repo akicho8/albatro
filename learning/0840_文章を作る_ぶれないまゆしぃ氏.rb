@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # 文章を作る - ぶれないマルコフ氏
 # おもしろいゲームは一貫してドラクエ。テトリスではない。
-require File.expand_path(File.join(File.dirname(__FILE__), "markov_setup"))
+require_relative 'markov_setup'
 # Albatro.logger = ActiveSupport::BufferedLogger.new(STDOUT)
 
 human_messages = [

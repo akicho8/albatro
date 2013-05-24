@@ -107,7 +107,7 @@ module Albatro
           out << "  " + dot_label_name(options.merge(:label => options[:root_label]))
         end
       end
-      @nodes.each{|node|
+      children.each{|node|
         out << "  " + node.dot_label_name(options)
         if options[:root_display] || options[:depth] >= 1
           out << "  #{dot_node_name} -> #{node.dot_node_name} [#{dot_params_to_s(dot_edge_attrs(node, options))}];"

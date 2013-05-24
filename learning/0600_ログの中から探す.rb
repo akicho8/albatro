@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # ログの中から探す
-require File.expand_path(File.join(File.dirname(__FILE__), "helper"))
+require_relative 'helper'
 # Albatro.logger = ActiveSupport::BufferedLogger.new(STDOUT)
 
 Chat::VipRoom.open{|room|

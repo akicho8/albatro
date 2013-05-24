@@ -1,0 +1,7 @@
+# -*- coding: utf-8 -*-
+Dir.chdir(File.expand_path(File.join(File.dirname(__FILE__), ".."))) {
+  eval_gemfile File.expand_path(File.join(File.dirname(__FILE__), '../Gemfile'))
+}
+gem "rsdl", :require => false
+gem "rubysdl", :require => false
+gem "net-ping", :require => "net/ping"

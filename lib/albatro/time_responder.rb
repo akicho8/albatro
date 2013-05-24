@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-require File.expand_path(File.join(File.dirname(__FILE__), "responder"))
+require_relative "responder"
 
 module Albatro
   class TimeResponder < Responder
@@ -16,7 +16,7 @@ module Albatro
     #
     def dialogue(input, options = {})
       if input.match(/何時/)
-        "いま#{Time.current.hour}時ぐらい"
+        "いま#{Time.now.hour}時ぐらい"
       end
     end
   end

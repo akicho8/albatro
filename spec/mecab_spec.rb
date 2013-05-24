@@ -8,12 +8,12 @@ describe MeCab do
   end
 
   it "メモリが多い場合のパース" do
-    parser = MeCab::Tagger.new("-d /opt/local/lib/mecab/dic/ipadic-utf8 -Ochasen")
+    parser = MeCab::Tagger.new("-Ochasen")
     parser.parse("青空の下で読書").should be_present
   end
 
   it "メモリが少ない場合のパース" do
-    parser = MeCab::Tagger.new("-d /opt/local/lib/mecab/dic/ipadic-utf8 -Ochasen")
+    parser = MeCab::Tagger.new("-Ochasen")
     it = parser.parseToNode("青空の下で読書")
     while it do
       [it.surface, it.feature, it.cost]

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # 相手の発言を疑問で返してくる1(アホ)
-require File.expand_path(File.join(File.dirname(__FILE__), "helper"))
+require_relative 'helper'
 # Albatro.logger = ActiveSupport::BufferedLogger.new(STDOUT)
 
 messages = [

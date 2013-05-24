@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # いろんな種類のマルコフたちを生成
-require File.expand_path(File.join(File.dirname(__FILE__), "helper"))
+require_relative 'helper'
 
 @messages_hash = {
   "m1" => [

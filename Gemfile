@@ -1,14 +1,11 @@
 # -*- coding: utf-8 -*-
-source :rubygems
+source "https://rubygems.org"
 gemspec
+
+current_dir = File.expand_path(File.join(File.dirname(__FILE__), "."))
+
+# ↓ これらを gemspec の中でかけないの？？？
 gem "rain_table", :git => "https://github.com/akicho8/rain_table.git"
-gem "mecab-ruby", :path => "/usr/local/src/mecab-ruby-0.99", :require => "MeCab" # ← さっぱり、うごかん
-# gem "mecab-ruby", :gems => "/usr/local/src/mecab-ruby-0.99/mecab-ruby-0.99.gem"
-gem "rspec"
-gem "tapp"
-gem "pry-debugger"
-gem "activesupport"
-gem "amazon-ecs"
-gem "google-search"
-gem "sanitize"
-gem "twitter_oauth"
+gem "tree_support", :git => "https://github.com/akicho8/tree_support.git"
+# gem "mecab-ruby", :git => "git://github.com/cookpad/mecab-ruby-gem.git", :require => "MeCab"
+gem "mecab-ruby", ">= 0.99", :path => "#{current_dir}/vendor/mecab-ruby-0.996", :require => "MeCab"

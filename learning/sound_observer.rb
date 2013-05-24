@@ -1,4 +1,4 @@
-require File.expand_path(File.join(File.dirname(__FILE__), "sound_utils"))
+require_relative 'sound_utils'
 
 module Chat
   class SoundObserver

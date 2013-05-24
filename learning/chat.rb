@@ -1,11 +1,14 @@
 # -*- coding: utf-8 -*-
 
-require File.expand_path(File.join(File.dirname(__FILE__), "../lib/albatro"))
+require "bundler/setup"
+Bundler.require
+
 Albatro.logger = ActiveSupport::BufferedLogger.new(File.expand_path(File.join(File.dirname(__FILE__), "log/development.log")))
 
 require "observer"
-require "talk_client"
-require "sound_observer"
+
+require_relative "sound_observer"
+require_relative "talk_client"
 
 module Chat
   class SilentRoom

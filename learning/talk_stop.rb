@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-require File.expand_path(File.join(File.dirname(__FILE__), "talk_client"))
+require_relative 'talk_client'
 object = Chat::TalkClient.new
 # object.talk("ちゃんと繋がってる。問題ない1", :sync => false)
 # object.talk("ちゃんと繋がってる。問題ない2", :sync => false)

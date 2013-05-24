@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-require File.expand_path(File.join(File.dirname(__FILE__), "../lib/albatro"))
+require "bundler/setup"
+Bundler.require # !> loading in progress, circular require considered harmful - /Users/ikeda/src/albatro/lib/albatro/refer_methods.rb
 
 markov = Albatro::MarkovResponder.new(:prefix => 2)
 messages = [

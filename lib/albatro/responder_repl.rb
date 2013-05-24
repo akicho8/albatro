@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 module Albatro
-  module ResponderREPL
+  module ResponderRepl
     #
     # Responderと会話するデバッグ用CLIインターフェイス
     #

@@ -12,12 +12,13 @@ Gem::Specification.new do |spec|
   spec.rdoc_options = ["--line-numbers", "--inline-source", "--charset=UTF-8", "--diagram", "--image-format=jpg"]
   spec.executables = ["albatro", "morpheme"]
   spec.platform = Gem::Platform::RUBY
-  spec.add_dependency("activesupport")
-  spec.add_dependency("amazon-ecs")
-  spec.add_dependency("backports")
-  spec.add_dependency("google-search")
-  spec.add_dependency("rspec")
-  spec.add_dependency("sanitize")
-  spec.add_dependency("twitter_oauth")
-  spec.add_dependency("sanitize", ">= 1.2.1")
+  spec.add_dependency "activesupport"
+  spec.add_dependency "amazon-ecs"
+  spec.add_dependency "google-search"
+  spec.add_dependency "rspec"
+  spec.add_dependency "sanitize"
+  spec.add_dependency "twitter_oauth"
+  spec.add_dependency "yard"
+  spec.add_dependency "yard-rspec"
+  spec.add_dependency "yard-rubicle"
 end
