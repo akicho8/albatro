@@ -1,0 +1,2 @@
+morpheme 犯人はヤス
+albatro/lib/albatro/node_basic.rb:9:in `<module:Albatro>': uninitialized constant Albatro::TreeSupport (NameError)

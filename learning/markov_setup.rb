@@ -18,7 +18,7 @@ require_relative 'helper'
 (1..3).each{|prefix|
   @messages_hash.each{|mkey, messages|
     key = "p#{prefix}_#{mkey}"
-    responder = Albatro::MarkovResponder.new(:prefix => prefix)
+    responder = Albatro::Responder::MarkovResponder.new(:prefix => prefix)
     messages.each{|str|responder.study_from(str)}
     if (file = Pathname("tmp/_#{File.basename(__FILE__, '.*')}_#{key}_ud.png")) && !file.exist?
       responder.to_dot(:root_label => "スタート", :file => file, :rankdir => "UD", :fontsize => 14)

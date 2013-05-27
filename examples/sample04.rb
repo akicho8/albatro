@@ -2,7 +2,7 @@
 require "bundler/setup"
 Bundler.require
 
-responder = Albatro::MarkovResponder.new
+responder = Albatro::Responder::MarkovResponder.new
 text = "
 昨日、近所の吉野家行ったんです。吉野家。
 そしたらなんか人がめちゃくちゃいっぱいで座れないんです。

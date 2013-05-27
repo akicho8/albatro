@@ -1,9 +1,9 @@
 require "spec_helper"
-require "albatro/random_responder"
+require "albatro/responder/random_responder"
 
-describe Albatro::RandomResponder do
+describe Responder::RandomResponder do
   it "dialogue" do
-    responder = Albatro::RandomResponder.new
+    responder = Responder::RandomResponder.new
     messages = ("a" .. "z").to_a
     messages.each{|message|responder.study_from_string(message)}
     responder.dialogue("").should be_present

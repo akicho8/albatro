@@ -8,7 +8,7 @@ messages = [
   ".",
 ]
 
-human = Albatro::ActorResponder.new(:messages => messages)
-# human = Albatro::HumanResponder.new # 自分で入力するときはここを有効にする
+human = Albatro::Responder::ActorResponder.new(:messages => messages)
+# human = Albatro::Responder::HumanResponder.new # 自分で入力するときはここを有効にする
 
 net_responder_run(Chat::VipRoom, human)

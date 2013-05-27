@@ -2,7 +2,7 @@
 require "bundler/setup"
 Bundler.require # !> loading in progress, circular require considered harmful - /Users/ikeda/src/albatro/lib/albatro/refer_methods.rb
 
-markov = Albatro::MarkovResponder.new(:prefix => 2)
+markov = Albatro::Responder::MarkovResponder.new(:prefix => 2)
 messages = [
   "おもしろいゲームはドラクエです",
   "つまらないゲームはテトリスです",

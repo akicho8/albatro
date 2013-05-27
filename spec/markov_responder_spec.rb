@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 require "spec_helper"
-require "albatro/markov_responder"
+require "albatro/responder/markov_responder"
 
-describe Albatro::MarkovResponder do
+describe Responder::MarkovResponder do
   before do
-    @zero_responder = Albatro::MarkovResponder.new
+    @zero_responder = Responder::MarkovResponder.new
   end
 
   it "文章を学習していける" do
@@ -31,14 +31,14 @@ describe Albatro::MarkovResponder do
 
   describe "サフィックスの重複について" do
     it "サフィックスをユニークにする場合" do
-      responder = Albatro::MarkovBaseResponder.new(:uniquesuffix => true)
+      responder = Responder::MarkovBaseResponder.new(:uniquesuffix => true)
       responder.study_from_string("アヒルと鴨")
       responder.study_from_string("アヒルと鴨")
       responder.tree_dump.should == {"鴨"=>{}, "と"=>{"鴨"=>[]}, "アヒル"=>{"と"=>["鴨"]}}
     end
 
     it "サフィックスに重複を許す場合" do
-      responder = Albatro::MarkovBaseResponder.new(:uniquesuffix => false)
+      responder = Responder::MarkovBaseResponder.new(:uniquesuffix => false)
       responder.study_from_string("アヒルと鴨")
       responder.study_from_string("アヒルと鴨")
       responder.tree_dump.should == {"鴨"=>{}, "と"=>{"鴨"=>[]}, "アヒル"=>{"と"=>["鴨", "鴨"]}}
@@ -46,7 +46,7 @@ describe Albatro::MarkovResponder do
   end
 
   it "dialogue" do
-    responder = Albatro::MarkovBaseResponder.new
+    responder = Responder::MarkovBaseResponder.new
     responder.study_from_string("アヒルと鴨")
     responder.dialogue("アヒル").should be_present
     responder.dialogue("鴨").should be_blank
@@ -59,13 +59,13 @@ describe Albatro::MarkovResponder do
     end
 
     it "カウンタブルが効いてないのでAを何度も選択してしまう" do
-      object = Albatro::MarkovBaseResponder.new(:prefix => 1)
+      object = Responder::MarkovBaseResponder.new(:prefix => 1)
       object.study_from(:string => @str)
       object.dialogue2(:always_newtopic => true, :chain_max => 10).join.should == "XとAとAとAとAとA"
     end
 
     it "カウンタブルが効いているのでAのあとはBを選択する" do
-      object = Albatro::MarkovResponder.new(:prefix => 1)
+      object = Responder::MarkovResponder.new(:prefix => 1)
       object.study_from(:string => @str)
       object.dialogue2(:always_newtopic => true, :chain_max => 10).join.should == "XとAとB"
     end
@@ -76,21 +76,21 @@ describe Albatro::MarkovResponder do
       end
 
       it "同じ selected_count なら最初に登録されたものから選択" do
-        object = Albatro::MarkovResponder.new(:prefix => 2)
+        object = Responder::MarkovResponder.new(:prefix => 2)
         object.study_from(@lines)
         resp = (0...3).collect{object.dialogue2(:always_newtopic => true, :chain_max => 10, :nodes_sort_type => nil).join}
         resp.should == ["XとA", "XとB", "XとC"]
       end
 
       it "同じ selected_count なら最後に登録されたものから選択" do
-        object = Albatro::MarkovResponder.new(:prefix => 2)
+        object = Responder::MarkovResponder.new(:prefix => 2)
         object.study_from(@lines)
         resp = (0...3).collect{object.dialogue2(:always_newtopic => true, :chain_max => 10, :nodes_sort_type => proc{|e|[e.selected_count, -e.id]}).join}
         resp.should == ["XとC", "XとB", "XとA"]
       end
 
       it "同じ selected_count ならランダム" do
-        object = Albatro::MarkovResponder.new(:prefix => 2)
+        object = Responder::MarkovResponder.new(:prefix => 2)
         object.study_from(@lines)
         resp = (0...3).collect{object.dialogue2(:always_newtopic => true, :chain_max => 10, :nodes_sort_type => :rand).join}
         resp.should be_present
@@ -116,7 +116,7 @@ describe Albatro::MarkovResponder do
       (1..3).each{|prefix|
         @messages_hash.each{|mkey, messages|
           key = "p#{prefix}_#{mkey}"
-          responder = Albatro::MarkovResponder.new(:prefix => prefix)
+          responder = Responder::MarkovResponder.new(:prefix => prefix)
           messages.each{|str|responder.study_from(str)}
           filename_prefix = File.expand_path(File.join(File.dirname(__FILE__), "_" + File.basename(__FILE__, '.*')))
           if false

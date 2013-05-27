@@ -2,9 +2,9 @@
 require "spec_helper"
 require "albatro/morpheme"
 
-describe Albatro::Morpheme do
+describe Morpheme do
   before do
-    @object = Albatro::Morpheme.instance
+    @object = Morpheme.instance
   end
 
   it "analyze" do
@@ -13,7 +13,7 @@ describe Albatro::Morpheme do
     @object.analyze("もうだめだ。").should == [{:senses=>["副詞", "一般"], :word=>"もう"}, {:senses=>["名詞", "形容動詞語幹"], :word=>"だめ"}, {:senses=>["助動詞"], :word=>"だ"}, {:senses=>["記号", "句点"], :word=>"。"}]
   end
 
-  describe Albatro::Morpheme::Utils do
+  describe Morpheme::Utils do
     it "__keyword" do
       @object.__keyword?({:senses => ["名詞", "代名詞", "一般"], :word => "私"}).should be_true
     end

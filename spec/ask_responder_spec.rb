@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 require "spec_helper"
-require "albatro/ask_responder"
+require "albatro/responder/ask_responder"
 
-describe Albatro::AskResponder do
+describe Responder::AskResponder do
   before do
-    @responder = Albatro::AskResponder.new
+    @responder = Responder::AskResponder.new
   end
 
   it "赤ちゃんなのでオウム返しする" do

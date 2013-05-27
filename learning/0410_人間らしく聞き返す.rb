@@ -13,11 +13,11 @@ messages.each{|message|
   # Albatro::Morpheme.instance.analyze_display(message)
 }
 
-human = Albatro::ActorResponder.new(:messages => messages)
-# human = Albatro::HumanResponder.new # 自分で入力するときはここを有効にする
+human = Albatro::Responder::ActorResponder.new(:messages => messages)
+# human = Albatro::Responder::HumanResponder.new # 自分で入力するときはここを有効にする
 
 Chat::VipRoom.open{|room|
   room.join(SBot.new(:responder => human, :name => "おかりん"))
-  room.join(SBot.new(:responder => Albatro::AskResponder.new, :name => "まゆしぃ"))
+  room.join(SBot.new(:responder => Albatro::Responder::AskResponder.new, :name => "まゆしぃ"))
   room.main_loop
 }

@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 require "spec_helper"
-require "albatro/recommend_responder"
+require "albatro/responder/recommend_responder"
 
-describe Albatro::RecommendResponder do
+describe Responder::RecommendResponder do
   it "dialogue" do
-    obj = Albatro::RecommendResponder.new
+    obj = Responder::RecommendResponder.new
     obj.study_from_string("AAとCCとCC")
     obj.dictionary.should == {"CC"=>{"AA"=>1}, "AA"=>{"CC"=>1}}
     obj.study_from_string("BBとCC")

@@ -15,7 +15,7 @@ require "optparse"
 module Albatro
   class CLI
     def self.execute(args = ARGV)
-      @responder = MarkovResponder.new # デフォルト
+      @responder = Responder::MarkovResponder.new # デフォルト
       @oparser = OptionParser.new{|@oparser|
         @oparser.version = "0.1.0"
         @oparser.banner = [

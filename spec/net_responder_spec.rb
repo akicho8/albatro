@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 require "spec_helper"
-require "albatro/net_responder"
+require "albatro/responder/net_responder"
 
-describe Albatro::NetResponder do
+describe Responder::NetResponder do
   before do
-    @responder = Albatro::NetResponder.new(:mock => true)
+    @responder = Responder::NetResponder.new(:mock => true)
   end
 
   it "dialogue" do

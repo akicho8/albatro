@@ -2,9 +2,9 @@
 require "spec_helper"
 require "albatro/markov_node"
 
-describe Albatro::MarkovNode do
+describe MarkovNode do
   it "basic" do
-    root = Albatro::MarkovNode.new(:word => "(root)")
+    root = MarkovNode.new(:word => "(root)")
     node1 = root.nodes_create(:word => "アヒル")
     node2 = node1.nodes_create(:word => "と")
     node2.nodes_create(:word => "鴨")

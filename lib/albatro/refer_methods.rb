@@ -80,7 +80,7 @@ module Albatro
 end
 
 if $0 == __FILE__
-  require_relative "responder"
+  require_relative "base"
 
   class C < Albatro::Responder
     include Albatro::ReferMethods

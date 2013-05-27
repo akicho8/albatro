@@ -46,7 +46,7 @@
    : ├─4:な(0)
    : │  └─5:青空(0)
    : └─6:青空(0)
-   : Class:Albatro::MarkovResponder 単語数:6 先頭単語:1 DB:albatro.db
+   : Class:Albatro::Responder::MarkovResponder 単語数:6 先頭単語:1 DB:albatro.db
    : 綺麗な青空
 
 ** プレフィクス2のマルコフ木の表示

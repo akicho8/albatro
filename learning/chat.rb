@@ -312,7 +312,7 @@ module Chat
     #
     # inputに対する返答を返す
     #
-    # @params[:name] を渡しているのは HumanResponder に名指しさせるため
+    # @params[:name] を渡しているのは Responder::HumanResponder に名指しさせるため
     # その処理は、こっちの方で表示してもいいかもしれない。
     #
     def dialogue(input)
@@ -335,8 +335,8 @@ end
 
 if $0 == __FILE__
   Chat::VipRoom.open{|room|
-    room.join(Chat::SimpleBot.new(:responder => Albatro::WhatResponder.new, :name => "まゆしぃ"))
-    room.join(Chat::SimpleBot.new(:responder => Albatro::ActorResponder.new(:messages => ["あいうえお", "."]), :name => "おかりん"))
+    room.join(Chat::SimpleBot.new(:responder => Albatro::Responder::WhatResponder.new, :name => "まゆしぃ"))
+    room.join(Chat::SimpleBot.new(:responder => Albatro::Responder::ActorResponder.new(:messages => ["あいうえお", "."]), :name => "おかりん"))
     room.main_loop
   }
 end

@@ -14,8 +14,8 @@ human_messages = [
 
 # puts @markovs["p1_m1"].tree
 
-human = Albatro::ActorResponder.new(:messages => human_messages)
-# human = Albatro::HumanResponder.new # 自分で入力するときはここを有効にする
+human = Albatro::Responder::ActorResponder.new(:messages => human_messages)
+# human = Albatro::Responder::HumanResponder.new # 自分で入力するときはここを有効にする
 
 Chat::VipRoom.open{|room|
   room.join(SBot.new(:responder => human, :name => "おかりん"))

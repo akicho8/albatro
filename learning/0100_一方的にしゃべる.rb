@@ -3,7 +3,7 @@
 require_relative 'helper'
 # Albatro.logger = ActiveSupport::BufferedLogger.new(STDOUT)
 
-responder = Albatro::RandomResponder.new
+responder = Albatro::Responder::RandomResponder.new
 responder.study_from(:file => File.join(File.dirname(__FILE__), "../resources/yoshinoya_2ch_short.txt"), :format => :lines)
 # responder.study_from(:file => File.join(File.dirname(__FILE__), "../resources/eva_asuka_short.txt"), :format => :lines)
 # responder.study_from(:file => File.join(File.dirname(__FILE__), "../resources/eva_short.txt"), :format => :lines)
